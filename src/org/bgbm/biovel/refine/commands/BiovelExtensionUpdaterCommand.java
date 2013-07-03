@@ -39,9 +39,8 @@ public class BiovelExtensionUpdaterCommand extends Command {
     private static final String DEL_CURRENT = "delete-current-version";
     private static final String DLD_NEW = "download-new-version";
     private static final String INSTALL_NEW = "install-new-version";
-    
-    private static final String EXT_DIR = "." + File.separator + "extensions" + File.separator;
-    //private static final String EXT_DIR = "." + File.separator + "webapp" + File.separator + "extensions" + File.separator;
+        
+    private static final String EXT_DIR = "." + File.separator + "webapp" + File.separator + "extensions" + File.separator;
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
