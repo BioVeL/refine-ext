@@ -152,7 +152,6 @@
             <fileset dir="${basedir}/../../dist">
               <include name="google-refine-*.tar.gz"/>
               <include name="google-refine-*.zip"/>
-              <include name="google-refine-*.dmg"/>
             </fileset>   		
     	</copy>
     	
@@ -160,7 +159,6 @@
             <fileset dir="${basedir}/../../dist">
               <include name="google-refine-*.tar.gz"/>
               <include name="google-refine-*.zip"/>
-              <include name="google-refine-*.dmg"/>
             </fileset>   		
     	</copy>
     	
@@ -175,6 +173,23 @@
     		todir="${dld.stable.dir}" 
     		overwrite="true"
     	/>
+    </target>
+	
+    <target name="deploy_stable_mac" depends="package">
+    	<mkdir dir="${dld.stable.dir}/${version}" />
+
+    	
+    	<copy todir="${dld.stable.dir}/${version}" overwrite="true">
+            <fileset dir="${basedir}/../../dist">
+              <include name="google-refine-*.dmg"/>
+            </fileset>   		
+    	</copy>
+    	
+    	<copy todir="${dld.stable.dir}" overwrite="true">
+            <fileset dir="${basedir}/../../dist">
+              <include name="google-refine-*.dmg"/>
+            </fileset>   		
+    	</copy>
     </target>
 	
     <target name="clean">
