@@ -80,7 +80,7 @@ DataTableColumnHeaderUI.extendMenu(function(column, columnHeaderUI, menu) {
 	        "add-column-by-fetching-urls", 
 	        {
 	          baseColumnName: column.name, 
-	          urlExpression: "grel:\"http://160.45.63.201/cdmserver/col/name_catalogue/accepted.json?query=\" + replace(value, \" \", \"%20\")", 
+	          urlExpression: "grel:\"http://dev.e-taxonomy.eu/cdmserver/col/name_catalogue/accepted.json?query=\" + replace(value, \" \", \"%20\")", 
 	          newColumnName: columnName, 
 	          columnInsertIndex: columnIndex + 1,
 	          delay: elmts.throttleDelayInput[0].value,
@@ -217,7 +217,7 @@ DataTableColumnHeaderUI.extendMenu(function(column, columnHeaderUI, menu) {
 	MenuSystem.appendTo(menu, [ "ext/biovel" ], [
 	                                             {
 	                                            	 id: "ext/resolve-sci-name",
-	                                            	 label: "Resolve Name (beta)",
+	                                            	 label: "Resolve Name",
 	                                            	 click: doNameResolve
 	                                             }
 	                                             ]);
