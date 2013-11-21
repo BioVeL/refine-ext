@@ -37,12 +37,12 @@ ExtensionBar.addExtensionMenu({
 		[
 		 {
 			 "id" : "biovel/save-return-to-taverna",
-			 label: "Save to Taverna",
+			 label: "Save updates and return to workflow",
 			 click: function() { BiovelExtension.reply(); }
 		 },
 		 {
 			 "id" : "biovel/cancel-return-to-taverna",
-			 label: "Ignore updates and return to Taverna",
+			 label: "Ignore updates and return to workflow",
 			 click: function() { BiovelExtension.cancel(); }
 		 },
 		 {
