@@ -42,6 +42,8 @@ function registerCommands() {
 			  new Packages.org.bgbm.biovel.refine.commands.BiovelComputeClustersCommand());
 	  RS.registerCommand(module, "biovel-update-extension", 
 			  new Packages.org.bgbm.biovel.refine.commands.BiovelExtensionUpdaterCommand());
+	  RS.registerCommand(module, "add-column-if-not", 
+			  new Packages.org.bgbm.biovel.refine.commands.AddColumnIfNotCommand());
 }
 /*
  * Function invoked to initialize the extension.
@@ -60,6 +62,9 @@ function init() {
      "scripts/dialog/data-quality-check.js",
      "scripts/dialog/about.js",
      "scripts/dialog/update-extension.js",
+     "scripts/dialog/ecat-name-parse.js",
+     "scripts/dialog/acc-name-resolve.js",
+     "scripts/dialog/duplicate-column.js",
      "scripts/facets/list-facet.js"
     ]
   );
@@ -79,6 +84,9 @@ function init() {
   
   Packages.com.google.refine.grel.ControlFunctionRegistry.registerControl(
 	        "ecatParseName", new org.bgbm.biovel.refine.parsers.ECATNameParser());
+  
+  Packages.com.google.refine.grel.ControlFunctionRegistry.registerControl(
+	        "gbifAccName", new org.bgbm.biovel.refine.clustering.scientificname.GBIFAccNameResolver());
   
 }
 
