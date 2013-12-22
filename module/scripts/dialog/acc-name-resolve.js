@@ -52,7 +52,7 @@ AccNameResolveDialog.prototype._checkColumns = function() {
 }
 
 AccNameResolveDialog.prototype._dismiss = function() {		
-	
+
 	column_grel = {};
 	DialogSystem.dismissUntil(this._level - 1);
 };
@@ -96,13 +96,19 @@ AccNameResolveDialog.prototype._commit = function() {
 		);
 	}
 
-	if(this._elmts.targetChecklist[0].value == "GBIF-Backbone") {
-
+	if(this._elmts.targetChecklist[0].value.lastIndexOf("GBIF", 0) === 0) {
+		var datasetId = "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c";
+		if(this._elmts.targetChecklist[0].value == "GBIF-Backbone") {
+			datasetId = "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c";
+		}
+		if(this._elmts.targetChecklist[0].value == "GBIF-NCBI Taxonomy") {
+			datasetId = "fab88965-e69d-4491-a04d-e3198b626e52";
+		}	
 		Refine.postCoreProcess(
 				"add-column", 
 				{
 					baseColumnName: this._column.name, 
-					expression: "grel:gbifAccName(\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\",value)", 
+					expression: "grel:gbifAccName(\"" + datasetId + "\",value)", 
 					newColumnName: tempAccNameColumn, 
 					columnInsertIndex: this._columnIndex + 1
 				},
@@ -121,28 +127,27 @@ AccNameResolveDialog.prototype._commit = function() {
 						column_grel["authorship"] = "grel:parseJson(cells."+ tempAccNameColumn + ".value).get(\"query\")[0].get(\"tnrResponse\")[0].get(\"acceptedName\").get(\"taxonName\").get(\"authorship\")";
 						//keep nameAccepted last since it is checked in the onFinallyDone callback
 						column_grel["nameAccepted"] = "grel:parseJson(cells."+ tempAccNameColumn + ".value).get(\"query\")[0].get(\"tnrResponse\")[0].get(\"acceptedName\").get(\"taxonName\").get(\"name\").get(\"nameCanonical\")";
-						
+
 						AccNameResolveDialog.addColumns();
 					}
 
 				}
 		);	
-	}	
-
-	this._dismiss();
+	}
+this._dismiss();
 };
 
 AccNameResolveDialog.addColumns = function() {		
 
 	var tempColumnName = tempAccNameColumn;
 	var columnIndex = Refine.columnNameToColumnIndex(tempColumnName);	 
-	
+
 	for(ca in column_action) {	
-		
+
 		if(ca == "nameAccepted") {									
 			allColumnsAdded = true;
 		}
-		
+
 		Refine.postCoreProcess(
 				column_action[ca], 
 				{
@@ -163,7 +168,7 @@ AccNameResolveDialog.addColumns = function() {
 				{
 					onFinallyDone: function(o) {											
 						if(allColumnsAdded == true && Refine.columnNameToColumnIndex("_nameAccepted") > 0) {
-							
+
 							Refine.postCoreProcess(
 									"remove-column", 
 									{				 
@@ -178,9 +183,11 @@ AccNameResolveDialog.addColumns = function() {
 							allColumnsAdded == false;
 						}
 						column_grel = {};
+						
 					}
+					
 				}
 		);
-		
+
 	}
 };
