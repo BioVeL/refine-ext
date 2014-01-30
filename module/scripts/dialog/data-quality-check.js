@@ -4,9 +4,11 @@ function DataQualityCheckDialog() {
 
 DataQualityCheckDialog.prototype._createDialog = function() {
     var self = this;
-    var dialog = $(DOM.loadHTML("biovel", "scripts/dialog/data-quality-check.html"));
-    this._elmts = DOM.bind(dialog);
-    this._elmts.cancelButton.click(function() { self._dismiss(); });
+    
+    var dialog = $(DOM.loadHTML("biovel", "scripts/dialog/data-quality-check-dialog.html"));
+    
+    this._elmts = DOM.bind(dialog);    
+    this._elmts.cancelButton.click(function() { self._dismiss(); });   
     this._elmts.okButton.click(function() { self._commit(); });
     
     this._level = DialogSystem.showDialog(dialog);

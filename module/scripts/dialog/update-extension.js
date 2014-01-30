@@ -5,7 +5,7 @@ _busyimg = "<img src=\"images/small-spinner.gif\">";
 UpdateExtensionDialog.prototype._createDialog = function() {
     var self = this;
 
-    var dialog = $(DOM.loadHTML("biovel", "scripts/dialog/update-extension.html"));
+    var dialog = $(DOM.loadHTML("biovel", "scripts/dialog/update-extension-dialog.html"));
     this._elmts = DOM.bind(dialog);
     this._elmts.okButton.disabled=true;
     this._elmts.okButton.click(function() { self._commit(); });

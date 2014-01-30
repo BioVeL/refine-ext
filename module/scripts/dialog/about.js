@@ -5,7 +5,7 @@ function AboutDialog() {
 AboutDialog.prototype._createDialog = function() {
     var self = this;
 
-    var dialog = $(DOM.loadHTML("biovel", "scripts/dialog/about.html"));
+    var dialog = $(DOM.loadHTML("biovel", "scripts/dialog/about-dialog.html"));
     this._elmts = DOM.bind(dialog);
     this._elmts.okButton.click(function() { self._commit(); });
     this._extension = "biovel";
