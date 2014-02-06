@@ -58,7 +58,7 @@ AccNameResolveDialog.prototype._dismiss = function() {
 };
 
 AccNameResolveDialog.prototype._commit = function() {
-
+	deletingTempAccColumn = false;
 	if(this._elmts.targetChecklist[0].value == "EDIT-CoL") {
 		Refine.postCoreProcess(
 				"add-column-by-fetching-urls", 
@@ -166,10 +166,10 @@ AccNameResolveDialog.addColumns = function() {
 					cellsChanged: true
 				},
 				{
-					onFinallyDone: function(o) {											
-						if(allColumnsAdded == true && Refine.columnNameToColumnIndex("_nameAccepted") > 0 && !deletingTempAccColumn) {
-							deletingTempAccColumn = true;
-							
+					onFinallyDone: function(o) {			
+						
+						if(allColumnsAdded == true && Refine.columnNameToColumnIndex("_nameAccepted") > 0 && !window.deletingTempAccColumn) {
+							deletingTempAccColumn = true;							
 							Refine.postCoreProcess(
 									"remove-column", 
 									{				 

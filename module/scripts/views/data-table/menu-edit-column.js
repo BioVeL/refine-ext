@@ -75,7 +75,7 @@ DataTableColumnHeaderUI.extendMenu(function(column, columnHeaderUI, menu) {
 	MenuSystem.appendTo(menu, [ "ext/biovel" ], [
 	                                             {
 	                                            	 id: "ext/convert-lat-long",
-	                                            	 label: "Convert Lat Long",
+	                                            	 label: "Convert Lat Long [BETA]",
 	                                            	 click: doConvertLatLong
 	                                             }
 	                                             ]);
