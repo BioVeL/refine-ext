@@ -42,8 +42,6 @@ function registerCommands() {
 			  new Packages.org.bgbm.biovel.refine.commands.BiovelComputeClustersCommand());
 	  RS.registerCommand(module, "biovel-update-extension", 
 			  new Packages.org.bgbm.biovel.refine.commands.BiovelExtensionUpdaterCommand());
-	  RS.registerCommand(module, "add-column-if-not", 
-			  new Packages.org.bgbm.biovel.refine.commands.AddColumnIfNotCommand());
 }
 /*
  * Function invoked to initialize the extension.

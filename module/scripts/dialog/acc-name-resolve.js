@@ -3,7 +3,7 @@ var column_action = {};
 var column_grel = {}
 var tempAccNameColumn = "nameAccepted";
 var allColumnsAdded = false;
-
+var deletingTempAccColumn = false;
 function AccNameResolveDialog(col) {	
 	this._createDialog(col);
 }
@@ -167,8 +167,9 @@ AccNameResolveDialog.addColumns = function() {
 				},
 				{
 					onFinallyDone: function(o) {											
-						if(allColumnsAdded == true && Refine.columnNameToColumnIndex("_nameAccepted") > 0) {
-
+						if(allColumnsAdded == true && Refine.columnNameToColumnIndex("_nameAccepted") > 0 && !deletingTempAccColumn) {
+							deletingTempAccColumn = true;
+							
 							Refine.postCoreProcess(
 									"remove-column", 
 									{				 

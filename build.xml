@@ -47,8 +47,8 @@
     <property name="refine.server.lib.dir" value="${refine.server.dir}/lib" />
     <property name="classes.dir" value="${modinf.dir}/classes" />
 	
-    <property name="dld.beta.dir" value="/mnt/bgbm_biovel/public/beta/refine" />
-	<property name="dld.stable.dir" value="/mnt/bgbm_biovel/public/refine" />
+    <!-- <property name="dld.beta.dir" value="/mnt/bgbm_biovel/public/beta/refine" /> -->
+	<property name="dld.dir" value="/mnt/bgbm_biovel/public/refine" />
 
 	
     <path id="class.path">
@@ -76,126 +76,57 @@
 	
     <target name="package" depends="clean,build">
     	<zip destfile="${basedir}/../../dist/biovel.zip"
-    	       basedir="../"    
-    		   includes="biovel/**"
+    	       basedir="${basedir}"    
+    		   includes="*/**"
     	       excludes="**/src/**"
     	  />
     	
     	<exec dir="${basedir}/../.." executable="${basedir}/../../refine">
     	   <arg value="dist"/>
-    	   <arg value="2.6.0"/>    	    
+    	   <arg value="2.5.0"/>    	    
     	</exec>
     	
     </target>
 	
     <target name="deploy_beta" depends="package">
-    	<mkdir dir="${dld.beta.dir}/${version}" />
+    	<mkdir dir="${dld.dir}/${version}" />
     	<copy 
     		file="${basedir}/../../dist/biovel.zip" 
-    		todir="${dld.beta.dir}/${version}" 
+    		todir="${dld.dir}/${version}" 
     		overwrite="true"
-    	/>
-    	<copy 
-    		file="${basedir}/../../dist/biovel.zip" 
-    		todir="${dld.beta.dir}" 
-    		overwrite="true"
-    	/>
-    	
-    	<copy todir="${dld.beta.dir}/${version}" overwrite="true">
-            <fileset dir="${basedir}/../../dist">
-              <include name="google-refine-*.tar.gz"/>
-              <include name="google-refine-*.zip"/>
-              <include name="google-refine-*.dmg"/>
-            </fileset>   		
-    	</copy>
-    	
-    	<copy todir="${dld.beta.dir}" overwrite="true">
-            <fileset dir="${basedir}/../../dist">
-              <include name="google-refine-*.tar.gz"/>
-              <include name="google-refine-*.zip"/>
-              <include name="google-refine-*.dmg"/>
-            </fileset>   		
-    	</copy>
+    	/>    	
     	
     	<copy 
     		file="./module/MOD-INF/module.properties" 
-    		todir="${dld.beta.dir}/${version}" 
+    		todir="${dld.dir}/${version}" 
     		overwrite="true"
-    	/>
-    	
-    	<copy 
-    		file="./module/MOD-INF/module.properties" 
-    		todir="${dld.beta.dir}" 
-    		overwrite="true"
-    	/>
-
+    	/>    	
     </target>
-	
+
     <target name="deploy_stable" depends="package">
-    	<mkdir dir="${dld.stable.dir}/${version}" />
-    	<copy 
-    		file="${basedir}/../../dist/biovel.zip" 
-    		todir="${dld.stable.dir}/${version}" 
-    		overwrite="true"
-    	/>
-    	<copy 
-    		file="${basedir}/../../dist/biovel.zip" 
-    		todir="${dld.stable.dir}" 
-    		overwrite="true"
-    	/>
-    	
-    	<copy 
-    		file="./module/MOD-INF/module.properties" 
-    		todir="${dld.stable.dir}" 
-    		overwrite="true"
-    	/>
-    	
-    	<copy todir="${dld.stable.dir}/${version}" overwrite="true">
+        <symlink link="${dld.dir}/stable" resource="${dld.dir}/${version}"/>   	
+        <copy todir="${dld.dir}" overwrite="true">
             <fileset dir="${basedir}/../../dist">
               <include name="google-refine-*.tar.gz"/>
               <include name="google-refine-*.zip"/>
-            </fileset>   		
-    	</copy>
-    	
-    	<copy todir="${dld.stable.dir}" overwrite="true">
-            <fileset dir="${basedir}/../../dist">
-              <include name="google-refine-*.tar.gz"/>
-              <include name="google-refine-*.zip"/>
-            </fileset>   		
-    	</copy>
-    	
+              <include name="google-refine-*.dmg"/>
+            </fileset>          
+        </copy>
     	<copy 
     		file="./module/MOD-INF/module.properties" 
-    		todir="${dld.stable.dir}/${version}" 
-    		overwrite="true"
-    	/>
-    	
-    	<copy 
-    		file="./module/MOD-INF/module.properties" 
-    		todir="${dld.stable.dir}" 
+    		todir="${dld.dir}" 
     		overwrite="true"
     	/>
     </target>
 	
-    <target name="deploy_stable_mac" depends="package">
-    	<mkdir dir="${dld.stable.dir}/${version}" />
 
-    	
-    	<copy todir="${dld.stable.dir}/${version}" overwrite="true">
-            <fileset dir="${basedir}/../../dist">
-              <include name="google-refine-*.dmg"/>
-            </fileset>   		
-    	</copy>
-    	
-    	<copy todir="${dld.stable.dir}" overwrite="true">
-            <fileset dir="${basedir}/../../dist">
-              <include name="google-refine-*.dmg"/>
-            </fileset>   		
-    	</copy>
-    </target>
 	
     <target name="clean">
         <delete dir="${classes.dir}" />
-    	<delete file="${basedir}/../../dist/biovel.zip" />
+    	<delete>
+            <fileset dir="${basedir}/../../dist">
+                <include name="*"/>
+            </fileset>
+        </delete>
     </target>
 </project>
