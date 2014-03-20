@@ -15,6 +15,7 @@
 
 	<property file="./module/MOD-INF/module.properties" />
 	
+    <!-- version comes from ./module/MOD-INF/module.properties-->
     <condition property="version" value="trunk">
         <not><isset property="version"/></not>
     </condition>
@@ -95,17 +96,7 @@
     		todir="${dld.dir}/${version}" 
     		overwrite="true"
     	/>    	
-    	
-    	<copy 
-    		file="./module/MOD-INF/module.properties" 
-    		todir="${dld.dir}/${version}" 
-    		overwrite="true"
-    	/>    	
-    </target>
-
-    <target name="deploy_stable" depends="package">
-        <symlink link="${dld.dir}/stable" resource="${dld.dir}/${version}"/>   	
-        <copy todir="${dld.dir}" overwrite="true">
+    	<copy todir="${dld.dir}/${version}" overwrite="true">
             <fileset dir="${basedir}/../../dist">
               <include name="google-refine-*.tar.gz"/>
               <include name="google-refine-*.zip"/>
@@ -114,9 +105,22 @@
         </copy>
     	<copy 
     		file="./module/MOD-INF/module.properties" 
-    		todir="${dld.dir}" 
+    		todir="${dld.dir}/${version}" 
     		overwrite="true"
-    	/>
+    	/>    	
+    </target>
+
+    <target name="deploy_stable" depends="deploy_beta">
+        <copy 
+            file="${basedir}/../../dist/biovel.zip" 
+            todir="${dld.dir}" 
+            overwrite="true"
+        />  	
+        <copy 
+            file="./module/MOD-INF/module.properties" 
+            todir="${dld.dir}" 
+            overwrite="true"
+        />  
     </target>
 	
 
